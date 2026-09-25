@@ -29,12 +29,11 @@ export default function Terms() {
           paid tier.
         </p>
 
-        <h2>Early preview</h2>
+        <h2>Availability</h2>
         <p>
-          The plugin is pre-release software. Its behaviour and endpoint may
-          change, and the service may be interrupted or withdrawn at any time
-          without notice. Do not rely on it where an interruption would cause
-          harm.
+          The plugin and its endpoint may change, and the service may be
+          interrupted or withdrawn at any time without notice. Do not rely on
+          it where an interruption would cause harm.
         </p>
 
         <h2>Acceptable use</h2>

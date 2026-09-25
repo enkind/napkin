@@ -322,8 +322,7 @@ pnpm test:client   https://your-project.vercel.app
 
 ## Scope
 
-Napkin is a free, noncommercial project in pre-release `0.x`. Breaking contract
-changes advance the minor version; `1.0.0` is reserved for the public release.
+Napkin is a free, noncommercial project. Version `1.0.0` is its public release.
 
 ## Stack
 

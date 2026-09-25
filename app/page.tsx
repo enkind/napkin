@@ -16,7 +16,7 @@ export default function Home() {
             <Mark />
             Napkin
           </Link>
-          <span className="pill">Early preview</span>
+          <span className="pill">Free plugin</span>
           <span className="spacer" />
           <a href="https://github.com/enkind/napkin">GitHub</a>
           <a className="action" href="#install">

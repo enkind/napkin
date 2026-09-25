@@ -1,0 +1,92 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "Napkin",
+    "subtitle": "Sketch ideas in your chat",
+    "description": "When an idea is easier to draw than describe, Napkin opens a blank sheet in the conversation. Sketch with a pen and press Send. Your drawing arrives as an image in your next message, so your agent can see what you meant and continue the work. No Napkin account is required.",
+    "category": "DESIGN"
+  },
+  "tools": {
+    "open_napkin": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Opens a blank interface in the conversation without storing the brief or changing server-side data.",
+        "open_world_justification": "The tool only opens the local sketch interface and does not contact public sites or external recipients.",
+        "destructive_justification": "Opening a blank napkin does not delete, overwrite, publish, or perform any irreversible action."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Open a napkin for a rough logo direction.",
+      "user_prompt": "I can't quite describe the logo shape. Give me a napkin so I can sketch it.",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_napkin",
+      "expected_output": "A blank napkin opens in the conversation. The agent briefly invites the sketch and waits. After the user draws and presses Send, the sketch appears as an image in the next user message.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Capture a spatial layout instead of guessing it from prose.",
+      "user_prompt": "It would be easier to show you where the three panels should go. Let me draw it.",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_napkin",
+      "expected_output": "Opens a blank napkin with a short layout reminder and waits for the user to send a sketch before discussing the arrangement.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Open a napkin for a rough connection diagram.",
+      "user_prompt": "Can I sketch how the three boxes connect before we decide the flow?",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_napkin",
+      "expected_output": "Opens a blank napkin for the user to draw the connections and does not invent or describe a drawing before it arrives.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Open a napkin from a direct skill-style request.",
+      "user_prompt": "Open a blank napkin. I want to sketch a room layout.",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_napkin",
+      "expected_output": "Opens the napkin with a room-layout reminder. The drawing is sent only when the user presses Send.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Allow an unprompted blank sketch.",
+      "user_prompt": "Give me a blank napkin to draw on.",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_napkin",
+      "expected_output": "Opens an empty napkin without requiring a brief and waits for the user to sketch.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not open a napkin for a straightforward text answer.",
+      "user_prompt": "What is the capital of France?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Answers directly without opening a napkin.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not draw a finished image on the user's behalf.",
+      "user_prompt": "Create a polished logo image for my bakery.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Does not open Napkin, which provides blank paper for the user rather than generating a finished image.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not open a napkin when a diagram is already supplied in text.",
+      "user_prompt": "Explain this flow: Inbox → Review → Approved or Rejected.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Explains the given flow without opening a blank napkin.",
+      "expected_output_url": null
+    }
+  ]
+}

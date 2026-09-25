@@ -12,18 +12,24 @@ import { z } from "zod";
 export const runtime = "nodejs";
 
 // Hosts cache UI resources by URI. Bump this whenever you ship a widget change.
-const UI_VERSION = "8";
+const UI_VERSION = "9";
 const RESOURCE_URI = `ui://napkin/index.html?v=${UI_VERSION}`;
 
 // ---------------------------------------------------------------------------
 // The widget is a Vite bundle inlined into one HTML file (see vite.config.ts).
 // Serving a self-contained document means the host's iframe fetches nothing,
-// so no sandbox CSP has to be negotiated. See DECISIONS.md.
+// so the declared CSP needs no external origins. See DECISIONS.md.
 //
 // Read per request rather than cached at module scope, so `vite build --watch`
 // output is picked up without restarting the server.
 // ---------------------------------------------------------------------------
 const WIDGET_BUNDLE = path.join(process.cwd(), "widget", "dist", "index.html");
+const RESOURCE_META = {
+  ui: {
+    csp: { connectDomains: [], resourceDomains: [] },
+    domain: "https://napkin-neon.vercel.app",
+  },
+};
 
 async function readWidgetHtml(): Promise<string> {
   try {
@@ -38,11 +44,13 @@ async function readWidgetHtml(): Promise<string> {
 const handler = createMcpHandler(
   (server) => {
     registerAppResource(server, "app-widget", RESOURCE_URI, {}, async () => ({
+      _meta: RESOURCE_META,
       contents: [
         {
           uri: RESOURCE_URI,
           mimeType: RESOURCE_MIME_TYPE,
           text: await readWidgetHtml(),
+          _meta: RESOURCE_META,
         },
       ],
     }));
@@ -70,8 +78,16 @@ const handler = createMcpHandler(
                 "For example: 'rough logo direction'.",
             ),
         }),
-        annotations: { readOnlyHint: true, openWorldHint: false },
-        _meta: { ui: { resourceUri: RESOURCE_URI } },
+        outputSchema: z.object({ brief: z.string().nullable() }),
+        annotations: {
+          readOnlyHint: true,
+          destructiveHint: false,
+          openWorldHint: false,
+        },
+        _meta: {
+          ui: { resourceUri: RESOURCE_URI },
+          "openai/outputTemplate": RESOURCE_URI,
+        },
       },
       async ({ brief }) => ({
         content: [
@@ -88,7 +104,7 @@ const handler = createMcpHandler(
     );
   },
   {
-    serverInfo: { name: "napkin", version: "0.4.0" },
+    serverInfo: { name: "napkin", version: "1.0.0" },
     // Advertise the MCP Apps extension so UI-capable hosts negotiate it.
     capabilities: { extensions: { [EXTENSION_ID]: {} } },
   },
