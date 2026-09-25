@@ -5,7 +5,7 @@
     "display_name": "Napkin",
     "subtitle": "Sketch ideas in your chat",
     "description": "When an idea is easier to draw than describe, Napkin opens a blank sheet in the conversation. Sketch with a pen and press Send. Your drawing arrives as an image in your next message, so your agent can see what you meant and continue the work. No Napkin account is required.",
-    "category": "DESIGN"
+    "category": "creativity"
   },
   "tools": {
     "open_napkin": {
