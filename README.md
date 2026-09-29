@@ -96,6 +96,35 @@ A pen and a Send button. No eraser, no undo, no colours, no shapes, no rulers.
 A napkin is the rough version of an idea, and the constraint is the point — to
 change a sketch, ask for a fresh napkin.
 
+## Immediate next experiment — ChatGPT sidebar entry
+
+**Planned 2026-09-29; not implemented or verified.** Try opening the existing
+napkin directly from ChatGPT's sidebar, without first asking the agent to call
+`open_napkin`.
+
+Use [OpenAI MCP Extensions](https://github.com/openai/mcp-extensions) to declare
+`_meta["openai/ui"].entrypoints: [{ type: "global" }]` on `open_napkin`, alongside
+its standard `ui.resourceUri`. This declaration belongs in MCP tool metadata;
+it does not require a separate ChatGPT manifest. Keep one server and one widget
+bundle, with the ordinary tool-driven MCP App flow available to hosts that do
+not support the OpenAI extensions. Gate any extension-specific runtime calls
+on the host's advertised capabilities.
+
+The first proof is small:
+
+1. Open Napkin from the sidebar in a supporting ChatGPT host. The entrypoint
+   calls the tool with `{}`; the optional `brief` already permits that input.
+2. Draw and press Send. Verify the PNG reaches the entrypoint's conversation
+   and the agent can read it, using the existing negotiated image route.
+3. Check the canvas fits the new display area without scrollbars or shrinking.
+4. Repeat the ordinary tool-driven draw-and-send flow in Cursor to check that
+   the standard MCP App behavior still works.
+
+Record the actual host version and results in `DECISIONS.md` before treating
+support as proven. Conversation-panel entrypoints can follow this experiment;
+saved sketches, file handlers, and composer search are outside this first proof.
+See the [entrypoint specification](https://github.com/openai/mcp-extensions/blob/main/docs/spec.md#mcp-app-entrypoints).
+
 ## How the sketch gets back
 
 This is the part worth understanding, because the obvious design does not work.
