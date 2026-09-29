@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import type { ReactNode } from "react";
@@ -34,7 +35,10 @@ export default function Layout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${display.variable} ${text.variable} ${mono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

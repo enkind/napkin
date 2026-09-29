@@ -178,7 +178,7 @@ export default function Home() {
               </p>
               <p className="address">
                 <code className="mono">{INSTALL_PROMPT}</code>
-                <CopyButton value={INSTALL_PROMPT} label="Copy" />
+                <CopyButton value={INSTALL_PROMPT} label="Copy" trackAs="install-copied" />
               </p>
             </article>
 
