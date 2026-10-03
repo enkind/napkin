@@ -1,0 +1,28 @@
+{
+  "plugin": "plugins/napkin",
+  "versionFiles": [
+    "package.json",
+    "plugins/napkin/.codex-plugin/plugin.json",
+    "plugins/napkin/.cursor-plugin/plugin.json",
+    "plugins/napkin/.claude-plugin/plugin.json"
+  ],
+  "archive": {
+    "name": "napkin",
+    "exclude": [".cursor-plugin", ".claude-plugin"]
+  },
+  "production": {
+    "patch": {
+      "plugins/napkin/.mcp.json": {
+        "mcpServers": { "napkin": { "url": "https://napkin-neon.vercel.app/mcp" } }
+      },
+      "plugins/napkin/.cursor-plugin/plugin.json": {
+        "displayName": "Napkin",
+        "mcpServers": { "napkin": { "url": "https://napkin-neon.vercel.app/mcp" } }
+      },
+      "plugins/napkin/.codex-plugin/plugin.json": {
+        "interface": { "displayName": "Napkin" }
+      }
+    },
+    "remove": []
+  }
+}

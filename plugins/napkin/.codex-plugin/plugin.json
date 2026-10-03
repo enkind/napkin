@@ -6,17 +6,26 @@
     "name": "dzhunka"
   },
   "license": "MIT",
-  "keywords": ["mcp", "mcp-apps", "sketch", "drawing"],
+  "keywords": [
+    "mcp",
+    "mcp-apps",
+    "sketch",
+    "drawing"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Napkin",
+    "displayName": "Napkin (Dev)",
     "shortDescription": "Sketch it instead of describing it",
     "longDescription": "When words are doing badly, Napkin hands you a blank napkin in the conversation. Draw on it, press Send, and the sketch arrives as an image in your next message.",
     "developerName": "dzhunka",
     "category": "Productivity",
-    "capabilities": ["Sketch"],
-    "defaultPrompt": ["Give me a napkin so I can sketch this"],
+    "capabilities": [
+      "Sketch"
+    ],
+    "defaultPrompt": [
+      "Give me a napkin so I can sketch this"
+    ],
     "websiteURL": "https://napkin-neon.vercel.app",
     "privacyPolicyURL": "https://napkin-neon.vercel.app/privacy",
     "termsOfServiceURL": "https://napkin-neon.vercel.app/terms",

@@ -8,6 +8,7 @@ import {
   registerAppTool,
 } from "@modelcontextprotocol/ext-apps/server";
 import { z } from "zod";
+import { version } from "../../package.json";
 
 export const runtime = "nodejs";
 
@@ -27,7 +28,7 @@ const WIDGET_BUNDLE = path.join(process.cwd(), "widget", "dist", "index.html");
 const RESOURCE_META = {
   ui: {
     csp: { connectDomains: [], resourceDomains: [] },
-    domain: "https://napkin-neon.vercel.app",
+    domain: `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "napkin-neon.vercel.app"}`,
   },
 };
 
@@ -104,7 +105,7 @@ const handler = createMcpHandler(
     );
   },
   {
-    serverInfo: { name: "napkin", version: "1.0.0" },
+    serverInfo: { name: "napkin", version },
     // Advertise the MCP Apps extension so UI-capable hosts negotiate it.
     capabilities: { extensions: { [EXTENSION_ID]: {} } },
   },

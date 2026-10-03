@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { version } from "../package.json";
 
 // Codex's measured inline ceiling (DECISIONS 003), so the napkin here is sized
 // by the same rule it meets in a real host.
@@ -47,7 +48,7 @@ export function NapkinCard({
             id: message.id,
             result: {
               protocolVersion: "2026-01-26",
-              hostInfo: { name: "napkin-site", version: "1.0.0" },
+              hostInfo: { name: "napkin-site", version },
               hostCapabilities: { message: { text: {}, image: {} } },
               hostContext: {
                 displayMode: "inline",

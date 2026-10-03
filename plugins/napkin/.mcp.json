@@ -2,7 +2,7 @@
   "mcpServers": {
     "napkin": {
       "type": "http",
-      "url": "https://napkin-neon.vercel.app/mcp"
+      "url": "https://napkin-neon-dev.vercel.app/mcp"
     }
   }
 }

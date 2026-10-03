@@ -5,7 +5,7 @@ import { Mark } from "./mark";
 import "./styles.css";
 
 const INSTALL_PROMPT =
-  "Install the Napkin plugin from https://github.com/enkind/napkin";
+  "Install the Napkin plugin from the production branch of https://github.com/enkind/napkin";
 
 export default function Home() {
   return (

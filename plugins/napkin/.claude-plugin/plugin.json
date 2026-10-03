@@ -8,5 +8,10 @@
   "homepage": "https://napkin-neon.vercel.app",
   "repository": "https://github.com/enkind/napkin",
   "license": "MIT",
-  "keywords": ["mcp", "mcp-apps", "sketch", "drawing"]
+  "keywords": [
+    "mcp",
+    "mcp-apps",
+    "sketch",
+    "drawing"
+  ]
 }

@@ -51,7 +51,9 @@ In **Cursor**, add `https://github.com/enkind/napkin.git` as a marketplace
 through **Customize → Plugins** and install Napkin from it.
 
 There is no account and no key. Every host connects to the same Streamable HTTP
-endpoint, `https://napkin-neon.vercel.app/mcp`; nothing runs locally. The napkin
+endpoint, `https://napkin-neon.vercel.app/mcp`; nothing runs locally. Install
+from the `production` branch for that released plugin; `main` carries
+**Napkin (Dev)**, which connects to `https://napkin-neon-dev.vercel.app/mcp`. The napkin
 needs a host that renders MCP Apps and accepts images from them. Where one does
 not, the widget says so and Send stays disabled.
 
@@ -331,23 +333,24 @@ scrollbar appearing inside the card is a bug.
 
 ## Deploy
 
-Every push to `main` deploys to production through
-`.github/workflows/deploy.yml`. Vercel's own Git integration cannot deploy an
-organization repository on a Hobby team, so it is disconnected and the workflow
-builds with the project's settings (`vercel pull`, `vercel build`) and uploads
-the prebuilt output, then runs the protocol smoke test against production. It
-needs three repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and
-`VERCEL_PROJECT_ID`. Run it again from the Actions tab with **Run workflow**.
+| Environment | Git | MCP URL |
+| --- | --- | --- |
+| Development | every push to `main`, published as a `vX.Y.Z-dev.N` prerelease | `https://napkin-neon-dev.vercel.app/mcp` |
+| Production | the manual Release run, published as `vX.Y.Z` | `https://napkin-neon.vercel.app/mcp` |
 
-Pull requests get no preview deployments. To deploy by hand, or to a project of
-your own:
+`.github/workflows/ci.yml` calls the shared Enkind plugin pipeline in
+[`enkind/.github`](https://github.com/enkind/.github), and `plugin-release.json`
+describes this repository to it. Commit subjects follow
+[Conventional Commits](https://www.conventionalcommits.org): `fix:` releases a
+patch, `feat:` a minor, and `feat!:` a major, and semantic-release computes
+every version from them. CI checks commit subjects and runs `pnpm lint` and
+`pnpm build` on every pull request and push, and runs `pnpm test:client` against
+each deployed endpoint.
 
-```sh
-pnpm build
-vercel deploy --prod
-pnpm set-endpoint https://your-project.vercel.app    # only for a new domain
-pnpm test:client   https://your-project.vercel.app
-```
+To release, run `gh workflow run ci.yml --ref main`. Production is deployed and
+probed before the GitHub release and the `production` branch are published.
+Every release attaches `napkin-<version>.zip`, the archive to upload to the
+ChatGPT plugin directory when the skill, manifest text, or icon changed.
 
 ## Scope
 

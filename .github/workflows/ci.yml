@@ -1,0 +1,22 @@
+name: CI/CD
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || 'release' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  plugin:
+    uses: enkind/.github/.github/workflows/plugin.yml@v1
+    with:
+      check: pnpm lint && pnpm build
+      probe: pnpm test:client "${MCP_URL%/mcp}"
+    secrets: inherit

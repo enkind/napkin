@@ -4,6 +4,7 @@ import type {
   McpUiHostCapabilities,
   McpUiHostContext,
 } from "@modelcontextprotocol/ext-apps";
+import { version } from "../package.json";
 
 // ---------------------------------------------------------------------------
 // Session-persistent singleton App instance.
@@ -78,7 +79,7 @@ async function ensureConnected() {
   const { App } = await import("@modelcontextprotocol/ext-apps");
 
   const app = new App(
-    { name: "napkin-widget", version: "1.0.0" },
+    { name: "napkin-widget", version },
     {},
     { autoResize: true },
   );
